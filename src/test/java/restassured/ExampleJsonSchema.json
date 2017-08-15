@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+	{
+	    "id": 0,
+	    "firstname": "Dario",
+	    "secondname": "Wolff",
+	    "city": "Selenamouth",
+	    "search": {
+	      "Housetype": "independent",
+	      "location": "London",
+	      "minvalue": 29033,
+	      "maxvalue": 90017
+	    }
+	}
+  
+}
