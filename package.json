@@ -1,0 +1,23 @@
+{
+  "name": "restassured",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generateDummyData.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gokul87/restAssured.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gokul87/restAssured/issues"
+  },
+  "homepage": "https://github.com/gokul87/restAssured#readme",
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "json-server": "^0.12.0"
+  }
+}

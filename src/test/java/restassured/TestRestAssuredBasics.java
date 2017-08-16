@@ -87,7 +87,7 @@ public class TestRestAssuredBasics
     /**
      *  Verify multiple items in response data using hamcrest
      */
-    @Test
+    //@Test
     public void testHasItemFunction()
     {
     	given(). 
@@ -221,7 +221,6 @@ public class TestRestAssuredBasics
      public void getResponseHeaders(){
     	 
     	 Response resp = get(url);
-    	 
     	 Headers headers = resp.getHeaders();
     	 
     	 for(Header h:headers){
@@ -235,8 +234,7 @@ public class TestRestAssuredBasics
      @Test
      public void getCookies(){
     	 
-    	 Response resp = get(url);
-    	 
+    	 Response resp = get(url);   	 
     	 Map<String, String> allCookies = resp.getCookies();
     	 
     	 System.out.println("List of cookies are "+ allCookies);

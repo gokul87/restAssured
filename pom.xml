@@ -13,43 +13,70 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
-  <dependencies>
   
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>6.10</version>
-    </dependency>
+  <dependencies>
+	    <dependency>
+	      <groupId>org.testng</groupId>
+	      <artifactId>testng</artifactId>
+	      <version>6.10</version>
+	    </dependency>
     
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <version>3.0.3</version>
-      <scope>test</scope>
-	</dependency>
+	    <dependency>
+	      <groupId>io.rest-assured</groupId>
+	      <artifactId>rest-assured</artifactId>
+	      <version>3.0.3</version>
+	      <scope>test</scope>
+		</dependency>
     
-    <!-- used to parse json document -->
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>json-path</artifactId>
-      <version>3.0.3</version>
-	</dependency>
+	    <!-- used to parse json document -->
+	    <dependency>
+	      <groupId>io.rest-assured</groupId>
+	      <artifactId>json-path</artifactId>
+	      <version>3.0.3</version>
+		</dependency>
     
-    <!-- to validate that a JSON response confirms to a Json schema  -->
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>json-schema-validator</artifactId>
-      <version>3.0.3</version>
-      <scope>test</scope>
-   </dependency>
+	    <!-- to validate that a JSON response confirms to a Json schema  -->
+	    <dependency>
+	      <groupId>io.rest-assured</groupId>
+	      <artifactId>json-schema-validator</artifactId>
+	      <version>3.0.3</version>
+	      <scope>test</scope>
+	   </dependency>
    
-   <dependency>
-   		<groupId>org.hamcrest</groupId>
-   		<artifactId>java-hamcrest</artifactId>
-   		<version>2.0.0.0</version>
-   
-   </dependency>
-    
-  </dependencies>
+	   <dependency>
+	   		<groupId>org.hamcrest</groupId>
+	   		<artifactId>java-hamcrest</artifactId>
+	   		<version>2.0.0.0</version>
+	   </dependency>
+   </dependencies>
+  
+   <build>
+   		<plugins>
+		    <plugin>
+		          <groupId>org.codehaus.mojo</groupId>
+				  <artifactId>exec-maven-plugin</artifactId>
+				  <version>1.3.2</version>
+					  <executions>
+						    <execution><!-- Run our version calculation script -->
+						      <id>npm install(initialize)</id>
+						      <phase>initialize</phase>
+						      <goals>
+						        <goal>exec</goal>
+						      </goals>	      
+						      <configuration>
+						     		<executable>npm</executable>
+						     		<arguments>
+						     			<argument>install</argument>
+						     			<argument>faker</argument>
+						     			<argument>json-server</argument>
+						     		</arguments>
+					  		  </configuration>
+						    </execution>
+				  	   </executions>
+		   	 </plugin>
+	   </plugins>
+   </build>
+	
+  
+  
 </project>
