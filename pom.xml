@@ -56,23 +56,36 @@
 		          <groupId>org.codehaus.mojo</groupId>
 				  <artifactId>exec-maven-plugin</artifactId>
 				  <version>1.3.2</version>
-					  <executions>
-						    <execution><!-- Run our version calculation script -->
-						      <id>npm install(initialize)</id>
-						      <phase>initialize</phase>
-						      <goals>
-						        <goal>exec</goal>
-						      </goals>	      
-						      <configuration>
-						     		<executable>npm</executable>
-						     		<arguments>
+				  <executions>
+					 <execution>
+						 <id>npm install(initialize)</id>
+						 <phase>initialize</phase>
+						 <goals>
+						     <goal>exec</goal>
+						 </goals>	      
+						 <configuration>
+						     <executable>npm</executable>
+						     	<arguments>
 						     			<argument>install</argument>
 						     			<argument>faker</argument>
 						     			<argument>json-server</argument>
-						     		</arguments>
-					  		  </configuration>
-						    </execution>
-				  	   </executions>
+						     </arguments>
+					  	 </configuration>
+				      </execution> 
+				      <execution><!-- Run our version calculation script -->
+						 <id>Shellscript</id>
+						 <phase>Run Test through shell script</phase>
+						 <goals>
+						     <goal>exec</goal>
+						 </goals>	      
+						 <configuration>
+						     <executable>sh</executable>
+						     	<arguments>
+						     			<argument>./runRestAPITest.sh</argument>
+						     </arguments>
+					  	 </configuration>
+				      </execution>
+				  </executions>
 		   	 </plugin>
 	   </plugins>
    </build>
