@@ -22,6 +22,7 @@ import io.restassured.response.Response;
 
 public class TestRestApi {
 	
+	public int uniqueNo;
 	
 	public TestRestApi() {
 		
@@ -49,7 +50,7 @@ public class TestRestApi {
 		    
 	}
 	
-	@Test
+	@Test(priority=2)
 	public void testStatusCode() {
 		given().
 		  get("/").
@@ -57,7 +58,7 @@ public class TestRestApi {
 		  statusCode(200);
 	}
 	
-	@Test
+	@Test(priority=3)
 	public void testResponseDataUsingGroovy() {
 		//Fetch the first author from the response data		
 		String authorTitle = 
@@ -78,9 +79,10 @@ public class TestRestApi {
 		System.out.println("The response should have author "+ authorTitle);
 	}
 	
-	@Test
+	@Test(priority=4)
     public void getResponseHeaders() {
    	 
+		 //Loop through the list of headers and print them
 	   	 Response resp = get("/");
 	   	 Headers headers = resp.getHeaders();
 	   	 
@@ -89,16 +91,17 @@ public class TestRestApi {
 	   	 }
     }
 	
-	@Test
+	@Test(priority=5)
     public void getCookies() {
    	 
+		 //Collects the cookies and assign it to a variable
 	   	 Response resp = get("/");   	 
 	   	 Map<String, String> allCookies = resp.getCookies();
 	   	 
 	   	 System.out.println("List of cookies are "+ allCookies);
     }
 	
-	@Test
+	@Test(priority=6)
 	public void testResponseTime() {
 		
 		//Verifies if the endpoint responses within 2 seconds
@@ -110,7 +113,7 @@ public class TestRestApi {
 		  time(lessThan(2000L));
 	}
 	
-	@Test
+	@Test(priority=1)
 	public void testPostData() {
 		
 		String jsonString = "{" +
@@ -125,7 +128,7 @@ public class TestRestApi {
     			"                   },\n" +
 	    		"                   { \n" +
 	    		"                      		\"author\": \"Sridharan\", \n" +	
-	    		"                           \"category\": \"fiction\", \n" +
+	    		"                           \"category\": \"Comedy\", \n" +
     			" 						    \"price\": 10, \n" +
     			"						    \"title\": \"Post a json\"  \n" +
     			"                   }\n" +
@@ -133,13 +136,29 @@ public class TestRestApi {
     			"          }\n" +
     			"}";
     			
-    	given(). 
-    	   contentType("application/json").
-    	   body(jsonString).
-    	when().
-    	   post("/").
-    	then(). 
-    	   statusCode(201).log().all();
+    	uniqueNo = given(). 
+    					contentType("application/json").
+    					body(jsonString).
+    			   when().
+    			   	    post("/").
+    			   then(). 
+    			   		extract(). 
+    			   		path("id");
+    	
+    	System.out.println("The unique identifier for the posted data is "+ uniqueNo);
+	}
+	
+	@Test(priority=7)
+	public void testDeleteData() {
+		
+		//Deletes the above posted data
+		given(). 
+			contentType("application/json").
+		when().
+			delete("/27").
+	    then().
+	        statusCode(200).log().all();
+		  
 	}
 	
 	
