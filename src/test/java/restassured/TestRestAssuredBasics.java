@@ -176,7 +176,7 @@ public class TestRestAssuredBasics
     			  extract().
     			  	path("search.minvalue");
     	 
-    	 System.out.println("The extracted data from json is "+val);
+    	 System.out.println("The extracted data from json is " + val);
     			  
     	 //assertEquals((Integer)val, 29033, "Verification to check if int values are matching");
     			 

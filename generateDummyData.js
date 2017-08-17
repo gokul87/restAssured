@@ -21,14 +21,14 @@ function generateData() {
             		{
             			"author":authornamebook1,
             			"category":categorybook1,
-            			"price":8.95,
+            			"price":8,
             			"title":titlebook1
             		},
             		{
             			"author":authornamebook2,
                         "category":categorybook2,
                         "isbn":"0-553-21311-3",
-                        "price":12.99,
+                        "price":12,
                         "title":titlebook2
             		}
             	]
