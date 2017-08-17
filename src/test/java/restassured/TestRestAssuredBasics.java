@@ -50,7 +50,7 @@ public class TestRestAssuredBasics
     /**
      * test the statuscode
      */
-    @Test
+    //@Test
     public void testStatusCode()
     {
     	given().
@@ -62,7 +62,7 @@ public class TestRestAssuredBasics
     /**
      * 
      */
-    @Test
+    //@Test
     public void testApp()
     {
         given().
@@ -75,7 +75,7 @@ public class TestRestAssuredBasics
     /**
      * Verify if data in response is equal to expected result using hamcrest library
      */
-    @Test
+    //@Test
     public void testEqualToFunction()
     {
     	given(). 
@@ -99,7 +99,7 @@ public class TestRestAssuredBasics
     /**
      * 
      */
-    @Test
+    //@Test
     public void testRoot()
     {
     	given(). 
@@ -140,7 +140,7 @@ public class TestRestAssuredBasics
     /**
      * 
      */
-    @Test
+    //@Test
     public void testResponseAsString(){
     	String responseAsString = get(url+"/50").asString();
     	System.out.println("My Response:\n\n\n"+responseAsString);
@@ -149,13 +149,13 @@ public class TestRestAssuredBasics
     /**
      * 
      */
-    @Test
+    //@Test
     public void testResponseAsInputStream(){
     	InputStream stream = get(url+"/50").asInputStream();
     	System.out.println("Stream length:"+stream.toString());
     }
     
-    @Test
+    //@Test
     public void testResponseByteAsArray(){
     	byte[] byteArray = get(url).asByteArray();
     	System.out.println("Byte array is:"+byteArray.length);
@@ -165,7 +165,7 @@ public class TestRestAssuredBasics
     /**
      * Extract data from response
      */
-     @Test
+     //@Test
      public void testJsonData(){
     	 int val =
     			 when().
@@ -185,7 +185,7 @@ public class TestRestAssuredBasics
      /**
       * Extract response details from json
       */
-     @Test
+     //@Test
      public void testExtractResponseContents(){
     	 Response resp = 
     			 when(). 
@@ -201,7 +201,7 @@ public class TestRestAssuredBasics
      /**
       * To get all attributes as list
       */
-     @Test
+     //@Test
      public void verifyResponseDataFromList(){
     	 
     	 List<String> ls = get(url).path("city");
@@ -217,7 +217,7 @@ public class TestRestAssuredBasics
      /**
       * Get response headers
       */
-     @Test
+     //@Test
      public void getResponseHeaders(){
     	 
     	 Response resp = get(url);
@@ -231,7 +231,7 @@ public class TestRestAssuredBasics
      /**
       * Get cookies
       */
-     @Test
+     //@Test
      public void getCookies(){
     	 
     	 Response resp = get(url);   	 
