@@ -1,26 +1,41 @@
 package restassured;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.lessThan;
+import static org.testng.Assert.assertEquals;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static org.hamcrest.Matchers.*;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
-import io.restassured.path.*;
 import io.restassured.response.Response;
 
 //import com.jayway.restassured.path.json.JsonPath;
 
-public class TestRestApi {
+
+/**
+ * This is a test class which gets executed against fake rest api data created by json-server
+ * I have created a maven build file using which you can run the whole test suite used just one command
+ * 
+ * mvn exec:exec@Shellscript
+ * @author gokul
+ * @param <Posts>
+ *
+ */
+public class TestRestApi<Posts> {
 	
 	public int uniqueNo;
 	
@@ -121,10 +136,10 @@ public class TestRestApi {
     			"       \"store\": {\n" +
     			"           \"book\": [\n" +
     			"                   { \n" +
-	    		    "						\"author\": \"Gokul\", \n" +
-	    		 	"                       \"category\": \"fiction\", \n" +
-	    			" 						\"price\": 20, \n" +
-	    			"						\"title\": \"Post a json\"  \n" +
+	    		"						\"author\": \"Gokul\", \n" +
+	    		"                       \"category\": \"fiction\", \n" +
+	    		" 						\"price\": 20, \n" +
+	    		"						\"title\": \"Post a json\"  \n" +
     			"                   },\n" +
 	    		"                   { \n" +
 	    		"                      		\"author\": \"Sridharan\", \n" +	
@@ -149,17 +164,61 @@ public class TestRestApi {
 	}
 	
 	@Test(priority=7)
+	public void testUpdateData() {
+		
+		//Create a json object which would be sent as a PUT request in RestAssured framework to 
+		//update a payload 
+		JsonNodeFactory factory = JsonNodeFactory.instance;
+		
+		ObjectNode pushContent = factory.objectNode();
+		ObjectNode store = factory.objectNode();
+		ObjectNode bookObj = factory.objectNode();
+		
+		ArrayNode books = factory.arrayNode();
+		
+		//Includes values to books array
+		bookObj.put("author", "Update test");
+		bookObj.put("category", "Updated Rest API");
+		bookObj.put("price", 11);
+		bookObj.put("title", "Verify if update works in api");
+
+		
+		books.add(bookObj);
+		store.put("book",books);
+		
+		//Includes values to fake json data created
+		pushContent.put("city", "Chennai");
+		pushContent.put("store", store);
+		pushContent.put("id", uniqueNo);
+		
+		System.out.println("The json array looks like" + pushContent);
+
+		
+		String updatedCategory = given(). 
+									contentType("application/json").
+									body(pushContent).
+								when().
+								    put("/"+uniqueNo).
+								then().
+									extract(). 
+							   		path("store.book[0].category");  
+		
+		//Verifies if the payload is being updated as expected
+		assertEquals(updatedCategory, "Updated Rest API");
+	}
+	
+	
+	@Test(priority=8)
 	public void testDeleteData() {
 		
 		//Deletes the above posted data
 		given(). 
 			contentType("application/json").
 		when().
-			delete("/27").
+			delete("/"+uniqueNo).
+			//delete("/28").
 	    then().
 	        statusCode(200).log().all();
-		  
 	}
-	
 	
 }
