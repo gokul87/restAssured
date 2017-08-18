@@ -18,10 +18,12 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
+import io.restassured.specification.ResponseSpecification;
 
 //import com.jayway.restassured.path.json.JsonPath;
 
@@ -38,6 +40,8 @@ import io.restassured.response.Response;
 public class TestRestApi<Posts> {
 	
 	public int uniqueNo;
+	ResponseSpecBuilder builder;
+	static ResponseSpecification rspec;
 	
 	public TestRestApi() {
 		
@@ -61,16 +65,19 @@ public class TestRestApi<Posts> {
 			baseHost = "http://localhost";
 		}
 		    RestAssured.baseURI = baseHost;
+		    ResponseSpecBuilder builder = new ResponseSpecBuilder();
+		    builder.expectContentType(ContentType.JSON);
+		    builder.expectStatusCode(200);
 		    
-		    
+		    rspec = builder.build();
 	}
 	
 	@Test(priority=2)
 	public void testStatusCode() {
 		given().
 		  get("/").
-		then().
-		  statusCode(200);
+		then(). 
+		  spec(rspec);
 	}
 	
 	@Test(priority=3)
@@ -125,7 +132,8 @@ public class TestRestApi<Posts> {
 		then().
 		  assertThat(). 
 		  header("Content-Encoding", "gzip").
-		  time(lessThan(2000L));
+		  time(lessThan(2000L)). 
+		  spec(rspec);
 	}
 	
 	@Test(priority=1)
@@ -193,7 +201,7 @@ public class TestRestApi<Posts> {
 		
 		System.out.println("The json array looks like" + pushContent);
 
-		
+		//Fetch the category from PUT endpoint
 		String updatedCategory = given(). 
 									contentType("application/json").
 									body(pushContent).
