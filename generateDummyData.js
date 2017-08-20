@@ -1,4 +1,4 @@
-var faker = require('faker')
+var faker = require('./node_modules/faker')
 
 function generateData() {
 	

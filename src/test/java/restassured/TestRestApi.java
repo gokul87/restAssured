@@ -65,6 +65,8 @@ public class TestRestApi<Posts> {
 			baseHost = "http://localhost";
 		}
 		    RestAssured.baseURI = baseHost;
+		    
+		    //Response spec builder helps to reuse the code in different parts of the class
 		    ResponseSpecBuilder builder = new ResponseSpecBuilder();
 		    builder.expectContentType(ContentType.JSON);
 		    builder.expectStatusCode(200);
@@ -133,6 +135,8 @@ public class TestRestApi<Posts> {
 		  assertThat(). 
 		  header("Content-Encoding", "gzip").
 		  time(lessThan(2000L)). 
+		  log(). 
+          ifError(). 
 		  spec(rspec);
 	}
 	
@@ -224,7 +228,6 @@ public class TestRestApi<Posts> {
 			contentType("application/json").
 		when().
 			delete("/"+uniqueNo).
-			//delete("/28").
 	    then().
 	        statusCode(200).log().all();
 	}

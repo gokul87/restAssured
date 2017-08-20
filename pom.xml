@@ -57,6 +57,7 @@
 				  <artifactId>exec-maven-plugin</artifactId>
 				  <version>1.3.2</version>
 				  <executions>
+				     <!-- Install required libraries to execute fake json data -->
 					 <execution>
 						 <id>npm install(initialize)</id>
 						 <phase>initialize</phase>
@@ -72,7 +73,8 @@
 						     </arguments>
 					  	 </configuration>
 				      </execution> 
-				      <execution><!-- Run our version calculation script -->
+				      <!-- Execute shell script to create data, run test and kill the fake data service -->
+				      <execution>
 						 <id>Shellscript</id>
 						 <phase>Run Test through shell script</phase>
 						 <goals>
